@@ -37,6 +37,7 @@ var score = 0; // aantal behaalde punten
 
 
 
+
 /* ********************************************* */
 /*      functies die je gebruikt in je game      */
 /* ********************************************* */
@@ -46,7 +47,7 @@ var score = 0; // aantal behaalde punten
  * Tekent het speelveld
  */
 var tekenVeld = function () {
-  fill("purple");
+  fill("orange");
   rect(20, 20, width - 2 * 20, height - 2 * 20);
 };
 
@@ -78,11 +79,16 @@ var tekenKogel = function(x, y) {
  * @param {number} x x-coördinaat
  * @param {number} y y-coördinaat
  */
-var tekenSpeler = function(x, y) {
-  fill("white");
-  ellipse(x, y, 50, 50);
+var speler1 = function(x,y) {
+  image("black-jet.png",x,y,100,100);
+}
+function preload() {
+  ("black-jet.png");
+  ("white-jet.png");
 };
-
+function draw(){
+    image(this.image , this.x , this.y);
+};
 
 /**
  * Updatet globale variabelen met positie van vijand of tegenspeler
@@ -150,7 +156,7 @@ function setup() {
   createCanvas(1280, 720);
 
   // Kleur de achtergrond blauw, zodat je het kunt zien
-  background('blue');
+  background('black');
 }
 
 
@@ -179,7 +185,7 @@ function draw() {
       tekenVeld();
       tekenVijand(vijandX, vijandY);
       tekenKogel(kogelX, kogelY);
-      tekenSpeler(spelerX, spelerY);
+      speler1(spelerX, spelerY);
 
       if (checkGameOver()) {
         spelStatus = GAMEOVER;
