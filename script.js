@@ -1,7 +1,15 @@
 /// @ts-check
 /// <reference path=".gitpod/p5.global-mode.d.ts" />
 "use strict";
+<<<<<<< HEAD
 
+=======
+function preload() {
+  speler0 = loadImage("black-jet.png");
+  speler2 = loadImage("white-jet.png");
+
+};
+>>>>>>> 8ca3c9d170028ba85e141aa5c2b1458efea9eefc
 /* Game opdracht
    Informatica - Emmauscollege Rotterdam
    Template voor een game in JavaScript met de p5 library
@@ -32,9 +40,14 @@ var vijandX = 0;   // x-positie van vijand
 var vijandY = 0;   // y-positie van vijand
 
 var score = 0; // aantal behaalde punten
+<<<<<<< HEAD
 
 var backGroundImage;
 
+=======
+var speler0;
+var speler2;
+>>>>>>> 8ca3c9d170028ba85e141aa5c2b1458efea9eefc
 
 
 
@@ -81,6 +94,7 @@ var tekenKogel = function(x, y) {
  * @param {number} x x-coördinaat
  * @param {number} y y-coördinaat
  */
+<<<<<<< HEAD
 var speler1 = function(x,y) {
     fill('red');
     ellipse(x,y,25,25);
@@ -91,6 +105,12 @@ function draw(x,y){
     x = x+1 
 };
 
+=======
+
+var tekenSpeler = function(spelerX,spelerY) {
+image(speler0, spelerX, spelerY, 100, 100)   
+ }
+>>>>>>> 8ca3c9d170028ba85e141aa5c2b1458efea9eefc
 /**
  * Updatet globale variabelen met positie van vijand of tegenspeler
  */
@@ -187,7 +207,12 @@ function draw() {
       tekenVeld();
       tekenVijand(vijandX, vijandY);
       tekenKogel(kogelX, kogelY);
+<<<<<<< HEAD
       speler1(spelerX, spelerY);
+=======
+      speler0(spelerX, spelerY);
+
+>>>>>>> 8ca3c9d170028ba85e141aa5c2b1458efea9eefc
 
       if (checkGameOver()) {
         spelStatus = GAMEOVER;
