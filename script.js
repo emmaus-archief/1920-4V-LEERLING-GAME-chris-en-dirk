@@ -1,15 +1,6 @@
 /// @ts-check
 /// <reference path=".gitpod/p5.global-mode.d.ts" />
 "use strict";
-<<<<<<< HEAD
-
-=======
-function preload() {
-  speler0 = loadImage("black-jet.png");
-  speler2 = loadImage("white-jet.png");
-
-};
->>>>>>> 8ca3c9d170028ba85e141aa5c2b1458efea9eefc
 /* Game opdracht
    Informatica - Emmauscollege Rotterdam
    Template voor een game in JavaScript met de p5 library
@@ -32,7 +23,10 @@ var spelStatus = SPELEN;
 
 var spelerX = 200; // x-positie van speler
 var spelerY = 100; // y-positie van speler
-
+var spelerX2 = 100;
+var spelerY2 = 200;
+var spelerH = 40;
+var spelerW = 40;
 var kogelX = 0;    // x-positie van kogel
 var kogelY = 0;    // y-positie van kogel
 
@@ -40,18 +34,9 @@ var vijandX = 0;   // x-positie van vijand
 var vijandY = 0;   // y-positie van vijand
 
 var score = 0; // aantal behaalde punten
-<<<<<<< HEAD
-
+var speler1Image;
+var speler2Image;
 var backGroundImage;
-
-=======
-var speler0;
-var speler2;
->>>>>>> 8ca3c9d170028ba85e141aa5c2b1458efea9eefc
-
-
-
-
 
 /* ********************************************* */
 /*      functies die je gebruikt in je game      */
@@ -65,6 +50,8 @@ var tekenVeld = function () {
 
 function preload() {
   backGroundImage = loadImage('images/retroAchtergrond.jpg');
+  speler1Image = loadImage('images/black-jet.png');
+  speler2Image = loadImage('images/white-jet.png');
 };
 
 
@@ -94,23 +81,17 @@ var tekenKogel = function(x, y) {
  * @param {number} x x-coördinaat
  * @param {number} y y-coördinaat
  */
-<<<<<<< HEAD
-var speler1 = function(x,y) {
-    fill('red');
-    ellipse(x,y,25,25);
+var speler1 = function() {
+    image(speler1Image, spelerX, spelerY, spelerW, spelerH);
  }
-
+var speler2 = function() {
+    image(speler2Image, spelerX2, spelerY2, spelerW, spelerH);
+}
 function draw(x,y){
     image(this.image , this.x , this.y);
     x = x+1 
 };
 
-=======
-
-var tekenSpeler = function(spelerX,spelerY) {
-image(speler0, spelerX, spelerY, 100, 100)   
- }
->>>>>>> 8ca3c9d170028ba85e141aa5c2b1458efea9eefc
 /**
  * Updatet globale variabelen met positie van vijand of tegenspeler
  */
@@ -207,13 +188,8 @@ function draw() {
       tekenVeld();
       tekenVijand(vijandX, vijandY);
       tekenKogel(kogelX, kogelY);
-<<<<<<< HEAD
       speler1(spelerX, spelerY);
-=======
-      speler0(spelerX, spelerY);
-
->>>>>>> 8ca3c9d170028ba85e141aa5c2b1458efea9eefc
-
+      speler2(spelerX, spelerY);
       if (checkGameOver()) {
         spelStatus = GAMEOVER;
       }
