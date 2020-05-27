@@ -2,13 +2,9 @@
 /// <reference path=".gitpod/p5.global-mode.d.ts" />
 "use strict";
 function preload() {
-<<<<<<< HEAD
   speler0 = loadImage("black-jet.png");
   speler2 = loadImage("white-jet.png");
-=======
-  ("black-jet.png");
-  ("white-jet.png");
->>>>>>> origin/master
+
 };
 /* Game opdracht
    Informatica - Emmauscollege Rotterdam
@@ -40,12 +36,8 @@ var vijandX = 0;   // x-positie van vijand
 var vijandY = 0;   // y-positie van vijand
 
 var score = 0; // aantal behaalde punten
-<<<<<<< HEAD
 var speler0;
 var speler2;
-=======
-var x = 0
->>>>>>> origin/master
 
 
 
@@ -92,22 +84,10 @@ var tekenKogel = function(x, y) {
  * @param {number} x x-coördinaat
  * @param {number} y y-coördinaat
  */
-<<<<<<< HEAD
+
 var tekenSpeler = function(spelerX,spelerY) {
 image(speler0, spelerX, spelerY, 100, 100)   
  }
-=======
-var speler1 = function(x,y) {
-    fill('red');
-    ellipse(x,y,25,25);
- }
-
-function draw(x,y){
-    image(this.image , this.x , this.y);
-    x = x+1 
-};
-
->>>>>>> origin/master
 /**
  * Updatet globale variabelen met positie van vijand of tegenspeler
  */
@@ -203,11 +183,8 @@ function draw() {
       tekenVeld();
       tekenVijand(vijandX, vijandY);
       tekenKogel(kogelX, kogelY);
-<<<<<<< HEAD
       speler0(spelerX, spelerY);
-=======
-      speler1(spelerX, spelerY);
->>>>>>> origin/master
+
 
       if (checkGameOver()) {
         spelStatus = GAMEOVER;
