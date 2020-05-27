@@ -1,10 +1,7 @@
 /// @ts-check
 /// <reference path=".gitpod/p5.global-mode.d.ts" />
 "use strict";
-function preload() {
-  ("black-jet.png");
-  ("white-jet.png");
-};
+
 /* Game opdracht
    Informatica - Emmauscollege Rotterdam
    Template voor een game in JavaScript met de p5 library
@@ -47,13 +44,15 @@ var backGroundImage;
 /* ********************************************* */
 /*      functies die je gebruikt in je game      */
 /* ********************************************* */
-
-
 /**
  * Tekent het speelveld
  */
 var tekenVeld = function () {
   rect(backGroundImage, 20, 20, width - 2 * 20, height - 2 * 20);
+};
+
+function preload() {
+  backGroundImage = loadImage('images/retroAchtergrond.jpg');
 };
 
 
@@ -77,7 +76,6 @@ var tekenKogel = function(x, y) {
 
 
 };
-
 
 /**
  * Tekent de speler
@@ -174,6 +172,7 @@ function draw() {
     case SPELEN:
       beweegVijand();
       beweegKogel();
+      background(backGroundImage);   
       beweegSpeler();
       
       if (checkVijandGeraakt()) {
