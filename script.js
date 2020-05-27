@@ -1,15 +1,7 @@
 /// @ts-check
 /// <reference path=".gitpod/p5.global-mode.d.ts" />
 "use strict";
-function preload() {
-<<<<<<< HEAD
-  speler0 = loadImage("black-jet.png");
-  speler2 = loadImage("white-jet.png");
-=======
-  ("black-jet.png");
-  ("white-jet.png");
->>>>>>> origin/master
-};
+
 /* Game opdracht
    Informatica - Emmauscollege Rotterdam
    Template voor een game in JavaScript met de p5 library
@@ -40,12 +32,9 @@ var vijandX = 0;   // x-positie van vijand
 var vijandY = 0;   // y-positie van vijand
 
 var score = 0; // aantal behaalde punten
-<<<<<<< HEAD
-var speler0;
-var speler2;
-=======
-var x = 0
->>>>>>> origin/master
+
+var backGroundImage;
+
 
 
 
@@ -54,14 +43,15 @@ var x = 0
 /* ********************************************* */
 /*      functies die je gebruikt in je game      */
 /* ********************************************* */
-
-
 /**
  * Tekent het speelveld
  */
 var tekenVeld = function () {
-  fill("orange");
-  rect(20, 20, width - 2 * 20, height - 2 * 20);
+  rect(backGroundImage, 20, 20, width - 2 * 20, height - 2 * 20);
+};
+
+function preload() {
+  backGroundImage = loadImage('images/retroAchtergrond.jpg');
 };
 
 
@@ -86,17 +76,11 @@ var tekenKogel = function(x, y) {
 
 };
 
-
 /**
  * Tekent de speler
  * @param {number} x x-coördinaat
  * @param {number} y y-coördinaat
  */
-<<<<<<< HEAD
-var tekenSpeler = function(spelerX,spelerY) {
-image(speler0, spelerX, spelerY, 100, 100)   
- }
-=======
 var speler1 = function(x,y) {
     fill('red');
     ellipse(x,y,25,25);
@@ -107,7 +91,6 @@ function draw(x,y){
     x = x+1 
 };
 
->>>>>>> origin/master
 /**
  * Updatet globale variabelen met positie van vijand of tegenspeler
  */
@@ -188,6 +171,7 @@ function draw() {
     case SPELEN:
       beweegVijand();
       beweegKogel();
+      background(backGroundImage);   
       beweegSpeler();
       
       if (checkVijandGeraakt()) {
@@ -203,11 +187,7 @@ function draw() {
       tekenVeld();
       tekenVijand(vijandX, vijandY);
       tekenKogel(kogelX, kogelY);
-<<<<<<< HEAD
-      speler0(spelerX, spelerY);
-=======
       speler1(spelerX, spelerY);
->>>>>>> origin/master
 
       if (checkGameOver()) {
         spelStatus = GAMEOVER;
