@@ -1,7 +1,10 @@
 /// @ts-check
 /// <reference path=".gitpod/p5.global-mode.d.ts" />
 "use strict";
-
+function preload() {
+  ("black-jet.png");
+  ("white-jet.png");
+};
 /* Game opdracht
    Informatica - Emmauscollege Rotterdam
    Template voor een game in JavaScript met de p5 library
@@ -32,7 +35,7 @@ var vijandX = 0;   // x-positie van vijand
 var vijandY = 0;   // y-positie van vijand
 
 var score = 0; // aantal behaalde punten
-
+var x = 0
 
 
 
@@ -80,14 +83,13 @@ var tekenKogel = function(x, y) {
  * @param {number} y y-coördinaat
  */
 var speler1 = function(x,y) {
-  image("black-jet.png",x,y,100,100);
-}
-function preload() {
-  ("black-jet.png");
-  ("white-jet.png");
-};
-function draw(){
+    fill('red');
+    ellipse(x,y,25,25);
+ }
+
+function draw(x,y){
     image(this.image , this.x , this.y);
+    x = x+1 
 };
 
 /**
