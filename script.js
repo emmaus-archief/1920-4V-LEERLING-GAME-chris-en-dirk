@@ -1,7 +1,10 @@
 /// @ts-check
 /// <reference path=".gitpod/p5.global-mode.d.ts" />
 "use strict";
-
+function preload() {
+  speler0 = loadImage("black-jet.png");
+  speler2 = loadImage("white-jet.png");
+};
 /* Game opdracht
    Informatica - Emmauscollege Rotterdam
    Template voor een game in JavaScript met de p5 library
@@ -32,6 +35,8 @@ var vijandX = 0;   // x-positie van vijand
 var vijandY = 0;   // y-positie van vijand
 
 var score = 0; // aantal behaalde punten
+var speler0;
+var speler2;
 
 
 
@@ -46,7 +51,7 @@ var score = 0; // aantal behaalde punten
  * Tekent het speelveld
  */
 var tekenVeld = function () {
-  fill("purple");
+  fill("orange");
   rect(20, 20, width - 2 * 20, height - 2 * 20);
 };
 
@@ -78,12 +83,9 @@ var tekenKogel = function(x, y) {
  * @param {number} x x-coördinaat
  * @param {number} y y-coördinaat
  */
-var tekenSpeler = function(x, y) {
-  fill("white");
-  ellipse(x, y, 50, 50);
-};
-
-
+var tekenSpeler = function(spelerX,spelerY) {
+image(speler0, spelerX, spelerY, 100, 100)   
+ }
 /**
  * Updatet globale variabelen met positie van vijand of tegenspeler
  */
@@ -150,7 +152,7 @@ function setup() {
   createCanvas(1280, 720);
 
   // Kleur de achtergrond blauw, zodat je het kunt zien
-  background('blue');
+  background('black');
 }
 
 
@@ -179,7 +181,7 @@ function draw() {
       tekenVeld();
       tekenVijand(vijandX, vijandY);
       tekenKogel(kogelX, kogelY);
-      tekenSpeler(spelerX, spelerY);
+      speler0(spelerX, spelerY);
 
       if (checkGameOver()) {
         spelStatus = GAMEOVER;
