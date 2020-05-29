@@ -49,8 +49,11 @@ var tekenVeld = function () {
 };
 
 function preload() {
+  // @ts-ignore
   backGroundImage = loadImage('images/retroAchtergrond.jpg');
+  // @ts-ignore
   speler1Image = loadImage('images/black-jet.png');
+  // @ts-ignore
   speler2Image = loadImage('images/white-jet.png');
 };
 
