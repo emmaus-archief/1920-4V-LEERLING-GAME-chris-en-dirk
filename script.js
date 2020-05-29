@@ -1,18 +1,6 @@
 /// @ts-check
 /// <reference path=".gitpod/p5.global-mode.d.ts" />
 "use strict";
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-function preload() {
-  speler0 = loadImage("black-jet.png");
-  speler2 = loadImage("white-jet.png");
-
-};
->>>>>>> Chris
-=======
->>>>>>> origin/Chris
 /* Game opdracht
    Informatica - Emmauscollege Rotterdam
    Template voor een game in JavaScript met de p5 library
@@ -72,7 +60,7 @@ function preload() {
  * @param {number} x x-coördinaat
  * @param {number} y y-coördinaat
  */
-var tekenVijand = function(x, y) {
+var tekenVijand = function(x,y) {
     
 
 };
@@ -93,7 +81,7 @@ var tekenKogel = function(x, y) {
  * @param {number} x x-coördinaat
  * @param {number} y y-coördinaat
  */
-var speler1 = function() {
+var speler1 = function(x,y) {
     image(speler1Image, spelerX, spelerY, spelerW, spelerH);
  }
 var speler2 = function() {
@@ -116,7 +104,6 @@ var beweegVijand = function() {
  * Updatet globale variabelen met positie van kogel of bal
  */
 var beweegKogel = function() {
-
 };
 
 
@@ -200,8 +187,8 @@ function draw() {
       tekenVeld();
       tekenVijand(vijandX, vijandY);
       tekenKogel(kogelX, kogelY);
-      speler1(spelerX, spelerY);
-      speler2(spelerX, spelerY);
+      //speler1(spelerX, spelerY);
+      // speler2(spelerX, spelerY);
       if (checkGameOver()) {
         spelStatus = GAMEOVER;
       }
