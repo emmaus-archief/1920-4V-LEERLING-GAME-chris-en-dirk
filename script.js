@@ -23,10 +23,10 @@ var spelStatus = SPELEN;
 
 var speler1;
 var speler2;
-var spelerX = 100; // x-positie van speler
-var spelerY = 200; // y-positie van speler
-var spelerX2 = 1200;
-var spelerY2 = 600;
+const startPositieXSpeler1 = 100; // x-positie van speler
+const startPositieYSpeler1 = 200; // y-positie van speler
+const startPositieXSpeler2 = 1200;
+const startPositieYSpeler2 = 600;
 var spelerH = 40;
 var spelerW = 40;
 var kogelX = 0;    // x-positie van kogel
@@ -36,18 +36,13 @@ var vijandX = 0;   // x-positie van vijand
 var vijandY = 0;   // y-positie van vijand
 
 var score = 0; // aantal behaalde punten
+
 var speler1Image;
 var speler2Image;
 var backGroundImage;
 /* ********************************************* */
 /*      functies die je gebruikt in je game      */
 /* ********************************************* */
-/**
- * Tekent het speelveld
- */
-var tekenVeld = function () {
-  image(backGroundImage, 20, 20, width - 2 * 20, height - 2 * 20);
-};
 
 function preload() {
   // @ts-ignore
@@ -57,6 +52,21 @@ function preload() {
   // @ts-ignore
   speler2Image = loadImage('images/white-jet.png');
 };
+
+
+
+/**
+ * Tekent het speelveld
+ */
+var tekenVeld = function () {
+  image(backGroundImage, 20, 20, width - 2 * 20, height - 2 * 20);
+};
+
+function tekenSpelers() {
+  console
+  speler1.draw();
+  speler2.draw();
+}
 
 
 /**
@@ -79,16 +89,8 @@ var tekenKogel = function(x, y) {
 
 
 };
-//speler
-var speler1F = function(x,y) {
-        image(speler1Image, spelerX, spelerY, spelerW, spelerH);
- }
-var speler2F = function() {
-    image(speler2Image, spelerX2, spelerY2, spelerW, spelerH);
-}
-/**
- * Updatet globale variabelen met positie van vijand of tegenspeler
- */
+
+ /* Updatet globale variabelen met positie van vijand of tegenspeler */
 var beweegVijand = function() {
     
 };
@@ -105,7 +107,23 @@ var beweegKogel = function() {
  * Kijkt wat de toetsen/muis etc zijn.
  * Updatet globale variabele spelerX en spelerY
  */
-var beweegSpeler = function() {
+var beweegSpelers = function() {
+  if (keyIsPressed) {
+    if (key === "a") {
+      speler1.angle -= 5;
+    }
+    if (key === "d") {
+      speler1.angle += 5;
+    }
+    if (keyCode === LEFT_ARROW) {
+      speler2.angle -= 5;
+    }
+    if (keyCode === RIGHT_ARROW) {
+      speler2.angle += 5;
+    }
+  }
+  speler1.update();
+  speler2.update();
 
 };
 
@@ -147,52 +165,17 @@ var checkGameOver = function() {
  * de p5 library, zodra het spel geladen is in de browser
  */
 function setup() {
+  angleMode(DEGREES);
+
   // Maak een canvas (rechthoek) waarin je je speelveld kunt tekenen
   createCanvas(1280, 720);
 
   // Kleur de achtergrond blauw, zodat je het kunt zien
   background('black');
-   speler1 = new Jet(speler1Image);
-   speler2 = new Jet(speler2Image);
+  speler1 = new Jet(speler1Image, startPositieXSpeler1, startPositieYSpeler1, 0.7);
+  speler2 = new Jet(speler2Image, startPositieXSpeler2, startPositieYSpeler2, 0.7);
 }
-class Jet {
-  constructor(image) {
-    this.x = spelerX,spelerX2;
-    this.y = spelerY, spelerY2;
-    this.image = image;
-    this.angle = 0;
-    this.speed = 0.7;
-  }
-   update() {
-    this.goWereFacing();
-    this.constrainToMap();
-  }
-constrainToMap() {
-    if (this.x < -this.image.width) {
-        this.x = width;
-    } else if (this.x > width) {
-        this.x = 0;
-    } 
-     
-    if (this.y > height) {
-        this.y = 0;
-    } else if (this.y < -this.image.height) {
-        this.y = height;
-    }
-  }
-   goWereFacing() {
-    this.x += this.speed * sin(this.angle);
-    this.y += this.speed * cos(this.angle);
-   }
-    draw() {
-    push();
-    translate(this.x, this.y);
-    imageMode(CENTER);
-    rotate(this.angle + HALF_PI);
-    image(this.image, 0, 0);
-    pop();
-  }
-}
+
 /**
  * draw
  * de code in deze functie wordt meerdere keren per seconde
@@ -200,11 +183,16 @@ constrainToMap() {
  */
 function draw() {
   switch (spelStatus) {
+    case UITLEG:
+      // teken hier je startscherm
+      // roep hier een functie aan om te zien welke toets indrukt is / kies modus
+
+    break;
     case SPELEN:
       beweegVijand();
       beweegKogel();
       background(backGroundImage);   
-      beweegSpeler();
+      beweegSpelers();
       
       if (checkVijandGeraakt()) {
         // punten erbij
@@ -217,13 +205,59 @@ function draw() {
       }
 
       tekenVeld();
+      tekenSpelers();
       tekenVijand(vijandX, vijandY);
       tekenKogel(kogelX, kogelY);
-      speler1F();
-      speler2F();
       if (checkGameOver()) {
         spelStatus = GAMEOVER;
       }
       break;
+  }
+}
+
+
+
+class Jet {
+  constructor(image, x, y, snelheid) {
+    this.x = x;
+    this.y = y;
+    this.image = image;
+    this.angle = 0;
+    this.speed = snelheid;
+  }
+
+  update() {
+    this.goWereFacing();
+    this.constrainToMap();
+  }
+
+  constrainToMap() {
+    if (this.x < -this.image.width) {
+        this.x = width;
+    } else if (this.x > width) {
+        this.x = 0;
+    } 
+     
+    if (this.y > height) {
+        this.y = 0;
+    } else if (this.y < -this.image.height) {
+        this.y = height;
+    }
+  }
+
+  goWereFacing() {
+    this.x += this.speed * cos(this.angle);
+    this.y += this.speed * sin(this.angle);
+  }
+
+  draw() {
+    console.log("draw on x: " + this.x + " and y:" + this.y);
+
+    push();
+    translate(this.x, this.y);
+    rotate(this.angle + 90);
+    imageMode(CENTER);
+    image(this.image, 0, 0);
+    pop();
   }
 }
