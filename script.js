@@ -1,15 +1,13 @@
 /// @ts-check
 /// <reference path=".gitpod/p5.global-mode.d.ts" />
 "use strict";
-<<<<<<< HEAD
 
-=======
 function preload() {
   speler0 = loadImage("black-jet.png");
   speler2 = loadImage("white-jet.png");
 
 };
->>>>>>> Chris
+
 /* Game opdracht
    Informatica - Emmauscollege Rotterdam
    Template voor een game in JavaScript met de p5 library
