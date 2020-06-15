@@ -23,6 +23,10 @@ var spelStatus = SPELEN;
 
 var speler1;
 var speler2;
+var Kogel1X: [];
+var Kogel1Y: [];
+var Kogel2X: [];
+var Kogel2Y: [];
 const startPositieXSpeler1 = 100; // x-positie van speler
 const startPositieYSpeler1 = 200; // y-positie van speler
 const startPositieXSpeler2 = 1200;
@@ -69,16 +73,6 @@ function tekenSpelers() {
 }
 
 
-/**
- * Tekent de vijand
- * @param {number} x x-coördinaat
- * @param {number} y y-coördinaat
- */
-var tekenVijand = function(x,y) {
-    
-
-};
-
 
 /**
  * Tekent de kogel of de bal
@@ -89,12 +83,6 @@ var tekenKogel = function(x, y) {
 
 
 };
-
- /* Updatet globale variabelen met positie van vijand of tegenspeler */
-var beweegVijand = function() {
-    
-};
-
 
 /**
  * Updatet globale variabelen met positie van kogel of bal
@@ -132,9 +120,9 @@ var beweegSpelers = function() {
  * Zoekt uit of de vijand is geraakt
  * @returns {boolean} true als vijand is geraakt
  */
-var checkVijandGeraakt = function() {
-
-  return false;
+var checkSpeler1Geraakt = function() {
+    
+  return true;
 };
 
 
@@ -143,9 +131,9 @@ var checkVijandGeraakt = function() {
  * bijvoorbeeld door botsing met vijand
  * @returns {boolean} true als speler is geraakt
  */
-var checkSpelerGeraakt = function() {
+var checkSpeler2Geraakt = function() {
     
-  return false;
+  return true;
 };
 
 
@@ -189,7 +177,6 @@ function draw() {
 
     break;
     case SPELEN:
-      beweegVijand();
       beweegKogel();
       background(backGroundImage);   
       beweegSpelers();
