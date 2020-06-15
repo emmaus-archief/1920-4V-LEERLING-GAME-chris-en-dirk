@@ -23,10 +23,10 @@ var spelStatus = SPELEN;
 
 var speler1;
 var speler2;
-var Kogel1X: [];
-var Kogel1Y: [];
-var Kogel2X: [];
-var Kogel2Y: [];
+var Kogel1X = [];
+var Kogel1Y = [];
+var Kogel2X = [];
+var Kogel2Y = [];
 const startPositieXSpeler1 = 100; // x-positie van speler
 const startPositieYSpeler1 = 200; // y-positie van speler
 const startPositieXSpeler2 = 1200;
@@ -36,8 +36,9 @@ var spelerW = 40;
 var kogelX = 0;    // x-positie van kogel
 var kogelY = 0;    // y-positie van kogel
 
-var vijandX = 0;   // x-positie van vijand
-var vijandY = 0;   // y-positie van vijand
+var stopwatchMilsec = 0;
+var stopwatchSec = 0;
+var stopwatchMin = 0;
 
 var score = 0; // aantal behaalde punten
 
@@ -146,6 +147,34 @@ var checkGameOver = function() {
   return false;
 };
 
+function tekenTimer() {
+    var nulExtra = "";
+    if(stopwatchSec < 10) {
+        nulExtra = "0";
+    }
+
+    var timerString = stopwatchMin + " : " + nulExtra + stopwatchSec;
+
+    fill("white");
+    textSize(12);
+    text(timerString, 60, 60, 60, 60);
+
+}
+
+function updateTimer() {
+    stopwatchMilsec++;
+
+    if(stopwatchMilsec == 10) {
+        stopwatchSec++;
+        stopwatchMilsec = 0;
+    }
+
+    if (stopwatchSec == 60) {
+        stopwatchMin++;
+        stopwatchSec = 0;
+    }
+}
+
 
 /**
  * setup
@@ -155,11 +184,13 @@ var checkGameOver = function() {
 function setup() {
   angleMode(DEGREES);
 
+  setInterval(updateTimer, 100);
+
   // Maak een canvas (rechthoek) waarin je je speelveld kunt tekenen
   createCanvas(1280, 720);
 
   // Kleur de achtergrond blauw, zodat je het kunt zien
-  background('black');
+  background("black");
   speler1 = new Jet(speler1Image, startPositieXSpeler1, startPositieYSpeler1, 0.7);
   speler2 = new Jet(speler2Image, startPositieXSpeler2, startPositieYSpeler2, 0.7);
 }
@@ -193,6 +224,7 @@ function draw() {
 
       tekenVeld();
       tekenSpelers();
+      tekenTimer();
       tekenKogel(kogelX, kogelY);
       if (checkGameOver()) {
         spelStatus = GAMEOVER;
@@ -200,8 +232,6 @@ function draw() {
       break;
   }
 }
-
-
 
 class Jet {
   constructor(image, x, y, snelheid) {
