@@ -19,7 +19,7 @@
 const UITLEG = 0;
 const SPELEN = 1;
 const GAMEOVER = 2;
-var spelStatus = SPELEN;
+var spelStatus = UITLEG;
 
 var speler1;
 var speler2;
@@ -203,6 +203,13 @@ function setup() {
 function draw() {
   switch (spelStatus) {
     case UITLEG:
+        background("black");
+        fill("white");
+        textSize(30);
+        text("Druk linker muisknop in om te starten", 200, 200, 300, 300);
+        if (mouseIsPressed){
+            spelStatus = SPELEN;
+        }
       // teken hier je startscherm
       // roep hier een functie aan om te zien welke toets indrukt is / kies modus
 
