@@ -181,19 +181,18 @@ function draw() {
       background(backGroundImage);   
       beweegSpelers();
       
-      if (checkVijandGeraakt()) {
+      if (checkSpeler1Geraakt()) {
         // punten erbij
         // nieuwe vijand maken
       }
       
-      if (checkSpelerGeraakt()) {
+      if (checkSpeler2Geraakt()) {
         // leven eraf of gezondheid verlagen
         // eventueel: nieuwe speler maken
       }
 
       tekenVeld();
       tekenSpelers();
-      tekenVijand(vijandX, vijandY);
       tekenKogel(kogelX, kogelY);
       if (checkGameOver()) {
         spelStatus = GAMEOVER;
