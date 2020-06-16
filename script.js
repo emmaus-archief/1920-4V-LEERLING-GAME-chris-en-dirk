@@ -93,7 +93,55 @@ var tekenKogel = function(x, y) {
  */
 var beweegKogel = function() {
 };
-
+class Bullet {
+  constructor(x, y, angle, isWhite) {
+    this.x = x;
+    this.y = y;
+    this.angle = angle;
+    this.isWhite = isWhite;
+    this.speed = 2;
+    this.r = 1.5;
+  }
+   
+   
+  update() {
+    this.x += this.speed * cos(this.angle);
+    this.y += this.speed * sin(this.angle);
+    this.constrainToMap();
+  }
+   
+   
+  constrainToMap() {
+    if (this.x < -this.r) {
+        this.x = width;
+    } else if (this.x > width) {
+        this.x = 0;
+    } 
+     
+    if (this.y > height) {
+        this.y = 0;
+    } else if (this.y < -this.r) {
+        this.y = height;
+    }
+  }
+   
+   
+  draw() {
+    if (this.isWhite) {
+      push();
+      noStroke();
+      fill(255);
+      ellipse(this.x, this.y, this.r*2, this.r*2);  
+      pop();
+    } else  {
+      push();
+      fill(0);
+      ellipse(this.x, this.y, 3, 3);    
+      pop();
+    }
+  }
+ 
+}
 
 /**
  * Kijkt wat de toetsen/muis etc zijn.
@@ -185,6 +233,7 @@ function updateTimer() {
  * de p5 library, zodra het spel geladen is in de browser
  */
 function setup() {
+  // @ts-ignore
   angleMode(DEGREES);
 
   setInterval(updateTimer, 100);
@@ -207,9 +256,9 @@ function draw() {
   switch (spelStatus) {
     case UITLEG:
         background(backGroundImage);
-        fill("white");
+        fill("red");
         textSize(30);
-        text("Druk linker muisknop in om te starten", 200, 200, 300, 300);
+        text("Druk linker muisknop in om te starten", 200, 200, 640, 460);
         if (mouseIsPressed){
             spelStatus = SPELEN;
         }
@@ -244,17 +293,26 @@ function draw() {
 }
 
 class Jet {
-  constructor(image, x, y, snelheid) {
+  constructor(image, x, y, snelheid, isWhite) {
     this.x = x;
     this.y = y;
     this.image = image;
     this.angle = 0;
     this.speed = snelheid;
+
+    this.rotateAmount = 0;
+    this.bullets = [];
+    this.isWhite = isWhite;
+  }
+  shoot() {
+    let bullet = new Bullet(this.x, this.y, this.angle, this.isWhite);
+    this.bullets.push(bullet);
   }
 
   update() {
     this.goWereFacing();
     this.constrainToMap();
+    this.angle += this.rotateAmount;
   }
 
   constrainToMap() {
@@ -285,5 +343,12 @@ class Jet {
     imageMode(CENTER);
     image(this.image, 0, 0);
     pop();
+    this.drawBullets();
+  }
+    drawBullets() {
+    for (let bullet of this.bullets) {
+      bullet.update();
+      bullet.draw();
+    }
   }
 }
