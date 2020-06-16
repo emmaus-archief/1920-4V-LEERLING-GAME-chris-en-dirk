@@ -45,6 +45,7 @@ var score = 0; // aantal behaalde punten
 var speler1Image;
 var speler2Image;
 var backGroundImage;
+var gameAchtergrond;
 /* ********************************************* */
 /*      functies die je gebruikt in je game      */
 /* ********************************************* */
@@ -56,6 +57,8 @@ function preload() {
   speler1Image = loadImage('images/black-jet.png');
   // @ts-ignore
   speler2Image = loadImage('images/white-jet.png');
+  // @ts-ignore
+  gameAchtergrond = loadImage('images/game-Achtergrond.jpg');
 };
 
 
@@ -64,7 +67,7 @@ function preload() {
  * Tekent het speelveld
  */
 var tekenVeld = function () {
-  image(backGroundImage, 20, 20, width - 2 * 20, height - 2 * 20);
+  image(gameAchtergrond, 20, 20, width - 2 * 20, height - 2 * 20);
 };
 
 function tekenSpelers() {
@@ -191,8 +194,8 @@ function setup() {
 
   // Kleur de achtergrond blauw, zodat je het kunt zien
   background("black");
-  speler1 = new Jet(speler1Image, startPositieXSpeler1, startPositieYSpeler1, 0.7);
-  speler2 = new Jet(speler2Image, startPositieXSpeler2, startPositieYSpeler2, 0.7);
+  speler1 = new Jet(speler1Image, startPositieXSpeler1, startPositieYSpeler1, 3);
+  speler2 = new Jet(speler2Image, startPositieXSpeler2, startPositieYSpeler2, 3);
 }
 
 /**
@@ -203,7 +206,7 @@ function setup() {
 function draw() {
   switch (spelStatus) {
     case UITLEG:
-        background("black");
+        background(backGroundImage);
         fill("white");
         textSize(30);
         text("Druk linker muisknop in om te starten", 200, 200, 300, 300);
@@ -216,7 +219,7 @@ function draw() {
     break;
     case SPELEN:
       beweegKogel();
-      background(backGroundImage);   
+      background("red");   
       beweegSpelers();
       
       if (checkSpeler1Geraakt()) {
