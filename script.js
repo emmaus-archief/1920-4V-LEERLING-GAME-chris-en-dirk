@@ -39,6 +39,7 @@ var kogelY = 0;    // y-positie van kogel
 var stopwatchMilsec = 0;
 var stopwatchSec = 0;
 var stopwatchMin = 0;
+var beginTekstKleur = 255;
 
 var score = 0; // aantal behaalde punten
 
@@ -52,7 +53,7 @@ var gameAchtergrond;
 
 function preload() {
   // @ts-ignore
-  backGroundImage = loadImage('images/retroAchtergrond.jpg');
+  backGroundImage = loadImage('images/sterrenAchtergrond.jpg');
   // @ts-ignore
   speler1Image = loadImage('images/black-jet.png');
   // @ts-ignore
@@ -213,18 +214,22 @@ function tekenTimer() {
 }
 
 function updateTimer() {
-    stopwatchMilsec++;
+    if(spelStatus == SPELEN){
 
-    if(stopwatchMilsec == 10) {
-        stopwatchSec++;
-        stopwatchMilsec = 0;
-    }
+        stopwatchMilsec++;
 
-    if (stopwatchSec == 60) {
-        stopwatchMin++;
-        stopwatchSec = 0;
+        if(stopwatchMilsec == 10) {
+            stopwatchSec++;
+            stopwatchMilsec = 0;
+        }
+
+        if (stopwatchSec == 60) {
+            stopwatchMin++;
+            stopwatchSec = 0;
+        }
+
     }
-}
+}  
 
 
 /**
@@ -256,9 +261,13 @@ function draw() {
   switch (spelStatus) {
     case UITLEG:
         background(backGroundImage);
-        fill("red");
-        textSize(30);
-        text("Druk linker muisknop in om te starten", 200, 200, 640, 460);
+        fill(beginTekstKleur);
+        beginTekstKleur = beginTekstKleur - 1.5;
+        if(beginTekstKleur == 0){
+            beginTekstKleur = 255;
+        }
+        textSize(45);
+        text("Druk linker muisknop in om te starten", 262, 350, 756, 100);
         if (mouseIsPressed){
             spelStatus = SPELEN;
         }
