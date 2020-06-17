@@ -63,6 +63,7 @@ class Jet {
     this.isWhite = isWhite;
   }
   shoot() {
+    console.log("shoot");
     let bullet = new Bullet(this.x, this.y, this.angle, this.isWhite);
     this.bullets.push(bullet);
   }
@@ -93,7 +94,7 @@ class Jet {
   }
 
   draw() {
-    console.log("draw on x: " + this.x + " and y:" + this.y);
+    //console.log("draw on x: " + this.x + " and y:" + this.y);
 
     push();
     translate(this.x, this.y);
@@ -105,6 +106,7 @@ class Jet {
   }
     drawBullets() {
     for (let bullet of this.bullets) {
+        console.log("drawBullets");
       bullet.update();
       bullet.draw();
     }
@@ -267,6 +269,13 @@ function tekenTimer() {
 
 }
 
+function createTimedBullet() {
+    if ((stopwatchSec % 2) === 0) { // rest van seconde gedeeld door 2 === 0
+     speler1.shoot();
+     speler2.shoot();
+    }
+}
+
 function updateTimer() {
     if(spelStatus == SPELEN){
 
@@ -348,6 +357,7 @@ function draw() {
       beweegKogel();
       background("red");   
       beweegSpelers();
+      createTimedBullet();
       
       if (checkSpeler1Geraakt()) {
         // punten erbij
