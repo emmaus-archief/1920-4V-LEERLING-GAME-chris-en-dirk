@@ -119,7 +119,7 @@ class Bullet {
     this.y = y;
     this.angle = angle;
     this.isWhite = isWhite;
-    this.speed = 2;
+    this.speed = 5;
     this.r = 1.5;
   }
    
