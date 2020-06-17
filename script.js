@@ -43,57 +43,74 @@ var beginTekstKleur = 255;
 
 var score = 0; // aantal behaalde punten
 
-var speler1Image;
-var speler2Image;
-var backGroundImage;
-var gameAchtergrond;
+var speler1Image=0;
+var speler2Image=0;
+var backGroundImage=0;
+var gameAchtergrond=0;
 /* ********************************************* */
-/*      functies die je gebruikt in je game      */
+/*      classes die je gebruikt in je game      */
 /* ********************************************* */
+class Jet {
+  constructor(image, x, y, snelheid, isWhite) {
+    this.x = x;
+    this.y = y;
+    this.image = image;
+    this.angle = 0;
+    this.speed = snelheid;
 
-function preload() {
-  // @ts-ignore
-  backGroundImage = loadImage('images/sterrenAchtergrond.jpg');
-  // @ts-ignore
-  speler1Image = loadImage('images/black-jet.png');
-  // @ts-ignore
-  speler2Image = loadImage('images/white-jet.png');
-  // @ts-ignore
-  gameAchtergrond = loadImage('images/game-Achtergrond.jpg');
-};
+    this.rotateAmount = 0;
+    this.bullets = [];
+    this.isWhite = isWhite;
+  }
+  shoot() {
+    let bullet = new Bullet(this.x, this.y, this.angle, this.isWhite);
+    this.bullets.push(bullet);
+  }
 
+  update() {
+    this.goWereFacing();
+    this.constrainToMap();
+    this.angle += this.rotateAmount;
+  }
 
+  constrainToMap() {
+    if (this.x < -this.image.width) {
+        this.x = width;
+    } else if (this.x > width) {
+        this.x = 0;
+    } 
+     
+    if (this.y > height) {
+        this.y = 0;
+    } else if (this.y < -this.image.height) {
+        this.y = height;
+    }
+  }
 
-/**
- * Tekent het speelveld
- */
-var tekenVeld = function () {
-  image(gameAchtergrond, 20, 20, width - 2 * 20, height - 2 * 20);
-};
+  goWereFacing() {
+    this.x += this.speed * cos(this.angle);
+    this.y += this.speed * sin(this.angle);
+  }
 
-function tekenSpelers() {
-  console
-  speler1.draw();
-  speler2.draw();
+  draw() {
+    console.log("draw on x: " + this.x + " and y:" + this.y);
+
+    push();
+    translate(this.x, this.y);
+    rotate(this.angle + 90);
+    imageMode(CENTER);
+    image(this.image, 0, 0);
+    pop();
+    this.drawBullets();
+  }
+    drawBullets() {
+    for (let bullet of this.bullets) {
+      bullet.update();
+      bullet.draw();
+    }
+  }
 }
 
-
-
-/**
- * Tekent de kogel of de bal
- * @param {number} x x-coördinaat
- * @param {number} y y-coördinaat
- */
-var tekenKogel = function(x, y) {
-
-
-};
-
-/**
- * Updatet globale variabelen met positie van kogel of bal
- */
-var beweegKogel = function() {
-};
 class Bullet {
   constructor(x, y, angle, isWhite) {
     this.x = x;
@@ -143,6 +160,43 @@ class Bullet {
   }
  
 }
+
+/* ********************************************* */
+/*      functies die je gebruikt in je game      */
+/* ********************************************* */
+
+/**
+ * Tekent het speelveld
+ */
+var tekenVeld = function () {
+  image(gameAchtergrond, 20, 20, width - 2 * 20, height - 2 * 20);
+};
+
+function tekenSpelers() {
+  console
+  speler1.draw();
+  speler2.draw();
+}
+
+
+
+/**
+ * Tekent de kogel of de bal
+ * @param {number} x x-coördinaat
+ * @param {number} y y-coördinaat
+ */
+var tekenKogel = function(x, y) {
+
+
+};
+
+/**
+ * Updatet globale variabelen met positie van kogel of bal
+ */
+var beweegKogel = function() {
+};
+
+
 
 /**
  * Kijkt wat de toetsen/muis etc zijn.
@@ -231,6 +285,21 @@ function updateTimer() {
     }
 }  
 
+/**
+ * peroload
+ * de code in deze functie wordt één keer uitgevoerd door
+ * de p5 library, voordat het spel geladen is in de browser
+ */
+function preload() {
+  // @ts-ignore
+  backGroundImage = loadImage('images/sterrenAchtergrond.jpg');
+  // @ts-ignore
+  speler1Image = loadImage('images/black-jet.png');
+  // @ts-ignore
+  speler2Image = loadImage('images/white-jet.png');
+  // @ts-ignore
+  gameAchtergrond = loadImage('images/game-Achtergrond.jpg');
+};
 
 /**
  * setup
@@ -301,63 +370,3 @@ function draw() {
   }
 }
 
-class Jet {
-  constructor(image, x, y, snelheid, isWhite) {
-    this.x = x;
-    this.y = y;
-    this.image = image;
-    this.angle = 0;
-    this.speed = snelheid;
-
-    this.rotateAmount = 0;
-    this.bullets = [];
-    this.isWhite = isWhite;
-  }
-  shoot() {
-    let bullet = new Bullet(this.x, this.y, this.angle, this.isWhite);
-    this.bullets.push(bullet);
-  }
-
-  update() {
-    this.goWereFacing();
-    this.constrainToMap();
-    this.angle += this.rotateAmount;
-  }
-
-  constrainToMap() {
-    if (this.x < -this.image.width) {
-        this.x = width;
-    } else if (this.x > width) {
-        this.x = 0;
-    } 
-     
-    if (this.y > height) {
-        this.y = 0;
-    } else if (this.y < -this.image.height) {
-        this.y = height;
-    }
-  }
-
-  goWereFacing() {
-    this.x += this.speed * cos(this.angle);
-    this.y += this.speed * sin(this.angle);
-  }
-
-  draw() {
-    console.log("draw on x: " + this.x + " and y:" + this.y);
-
-    push();
-    translate(this.x, this.y);
-    rotate(this.angle + 90);
-    imageMode(CENTER);
-    image(this.image, 0, 0);
-    pop();
-    this.drawBullets();
-  }
-    drawBullets() {
-    for (let bullet of this.bullets) {
-      bullet.update();
-      bullet.draw();
-    }
-  }
-}
