@@ -269,11 +269,17 @@ function tekenTimer() {
 
 }
 
-function createTimedBullet() {
-    if ((stopwatchSec % 2) === 0) { // rest van seconde gedeeld door 2 === 0
-     speler1.shoot();
-     speler2.shoot();
+function createBullet() {
+    if (keyIsPressed){
+        if(key === "w"){
+            speler1.shoot();
+        }
+        if(key === "ArrowUp"){
+            speler2.shoot();
+        }
     }
+    
+    
 }
 
 function updateTimer() {
@@ -357,7 +363,7 @@ function draw() {
       beweegKogel();
       background("red");   
       beweegSpelers();
-      createTimedBullet();
+      createBullet();
       
       if (checkSpeler1Geraakt()) {
         // punten erbij
