@@ -201,7 +201,7 @@ var beweegKogel = function() {
 
 
 /**
- * Kijkt wat de toetsen/muis etc zijn.
+ * Kijkt wat de toetsen/muis etc zijn. (keyIsDown)
  * Updatet globale variabele spelerX en spelerY
  */
 var beweegSpelers = function() {
