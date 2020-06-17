@@ -175,7 +175,7 @@ var beweegSpelers = function() {
  */
 var checkSpeler1Geraakt = function() {
     
-  return true;
+  return false;
 };
 
 
@@ -186,7 +186,7 @@ var checkSpeler1Geraakt = function() {
  */
 var checkSpeler2Geraakt = function() {
     
-  return true;
+  return false;
 };
 
 
