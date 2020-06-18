@@ -132,18 +132,20 @@ class Bullet {
    
    
   constrainToMap() {
-    if (this.x < -this.r) {
-        this.x = width;
-    } else if (this.x > width) {
-        this.x = 0;
-    } 
-     
-    if (this.y > height) {
-        this.y = 0;
-    } else if (this.y < -this.r) {
-        this.y = height;
+    function verwijderKogel(){
+        drawBullets.splice();
     }
+
+    if( this.x > 1280 ){
+        verwijderKogel();
+    }
+
+    if( this.y > 720 ){
+        verwijderKogel();
+    }
+
   }
+  
    
    
   draw() {
