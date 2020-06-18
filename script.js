@@ -181,25 +181,6 @@ function tekenSpelers() {
 }
 
 
-
-/**
- * Tekent de kogel of de bal
- * @param {number} x x-coördinaat
- * @param {number} y y-coördinaat
- */
-var tekenKogel = function(x, y) {
-
-
-};
-
-/**
- * Updatet globale variabelen met positie van kogel of bal
- */
-var beweegKogel = function() {
-};
-
-
-
 /**
  * Kijkt wat de toetsen/muis etc zijn. (keyIsDown)
  * Updatet globale variabele spelerX en spelerY
@@ -360,7 +341,6 @@ function draw() {
 
     break;
     case SPELEN:
-      beweegKogel();
       background("red");   
       beweegSpelers();
       createBullet();
@@ -378,7 +358,6 @@ function draw() {
       tekenVeld();
       tekenSpelers();
       tekenTimer();
-      tekenKogel(kogelX, kogelY);
       if (checkGameOver()) {
         spelStatus = GAMEOVER;
       }
