@@ -312,8 +312,10 @@ function draw() {
         if(beginTekstKleur == 0){
             beginTekstKleur = 255;
         }
+        textSize(160);
+        text("JETFIGHTER", 160, 200, 300, 200 )
         textSize(45);
-        text("Druk linker muisknop in om te starten   (Niet met CAPSLOCK spelen)        (Druk op p om te stoppen) ", 262, 350, 756, 300);
+        text("Druk linker muisknop in om te starten  (Niet met CAPSLOCK spelen)     (Druk op p om te stoppen) ", 262, 350, 756, 300);
         if (mouseIsPressed){
             spelStatus = SPELEN;
         }
