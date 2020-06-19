@@ -203,7 +203,7 @@ var beweegSpelers = function() {
 
 };
 
-// Hebben we later nog nodig
+// Hebben we later misschien nog nodig
 var checkSpeler1Geraakt = function() {
     
   return false;
@@ -215,9 +215,19 @@ var checkSpeler2Geraakt = function() {
 };
 
 var checkGameOver = function() {
-    
+    if(keyIsPressed){
+        if(key == "p"){
+            return true;
+        }
+    }
   return false;
 };
+
+if(checkGameOver === true){
+    spelStatus = GAMEOVER;
+}
+
+
 //timer
 function tekenTimer() {
     var nulExtra = "";
@@ -303,9 +313,15 @@ function draw() {
             beginTekstKleur = 255;
         }
         textSize(45);
-        text("Druk linker muisknop in om te starten   (niet met capslock spelen) ", 262, 350, 756, 100);
+        text("Druk linker muisknop in om te starten   (Niet met CAPSLOCK spelen)        (Druk op p om te stoppen) ", 262, 350, 756, 300);
         if (mouseIsPressed){
             spelStatus = SPELEN;
+        }
+        if(keyIsPressed){
+            if(key == "p"){
+                spelStatus = GAMEOVER;
+            }
+                
         }
     break;
     case SPELEN:
@@ -324,6 +340,21 @@ function draw() {
         spelStatus = GAMEOVER;
       }
       break;
+    case GAMEOVER:
+        background(backGroundImage);
+        fill(255, 0, 0)
+        textSize(150);
+        text("GAMEOVER", 200, 300, 500, 300)
+        textSize(20)
+        text("Druk h in om terug te gaan naar het hoofdmenu", 200, 450, 600, 100)
+        if(keyIsPressed){
+            if( key == "h"){
+                spelStatus = UITLEG;
+            }
+        }
+        break;
+      
+
   }
 }
 
