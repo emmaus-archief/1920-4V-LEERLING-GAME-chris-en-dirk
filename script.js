@@ -65,6 +65,7 @@ class Jet {
     console.log("shoot");
     let bullet = new Bullet(this.x, this.y, this.angle, this.isWhite);
     this.bullets.push(bullet);
+     console.log("bullet added, now",this.bullets.length,"bullets");
   }
 
   update() {
@@ -91,7 +92,6 @@ class Jet {
     this.x += this.speed * cos(this.angle);
     this.y += this.speed * sin(this.angle);
   }
-  //Kogels
   draw() {
     //console.log("draw on x: " + this.x + " and y:" + this.y);
 
@@ -105,14 +105,16 @@ class Jet {
   }
   drawBullets() {
     for (var i=0; i < this.bullets.length; i++) {
-          if (this.bullets[i].BulletGone() === true ) {
+      this.bullets[i].update();
+      this.bullets[i].draw();
+      if (this.bullets[i].BulletGone() === true ) {
+              console.log("bullet removed, now",this.bullets.length,"bullets");
               this.bullets.splice(i,1); // bullet verwijderen
-          }
-      }
-    for (let bullet of this.bullets) {
-        console.log("drawBullets");
-      bullet.update();
-      bullet.draw();
+        }
+          //fill(255,255,255);
+          //ellipse(this.bullets[i].bulletX,this.bullets[i].bulletY,10,10);
+          //console.log("drawBullets on x: " + this.bullets[i].bulletX + " and y:" + this.bullets[i].bulletY);
+
     }
   }
   
@@ -131,8 +133,8 @@ class Bullet{
    
    
   update() {
-    this.x += this.speed * cos(this.angle);
-    this.y += this.speed * sin(this.angle);
+    this.bulletX += this.speed * cos(this.angle);
+    this.bulletY += this.speed * sin(this.angle);
   }
    
    
@@ -156,18 +158,13 @@ class Bullet{
   }
   
   draw() {
-    if (this.isWhite) {
+      //console.log("bullet.draw");
       push();
       noStroke();
-      fill(255);
-      ellipse(this.x, this.y, this.r*2, this.r*2);  
+      fill(255,255,255);
+      ellipse(this.bulletX, this.bulletY, 10, 10);  
       pop();
-    } else  {
-      push();
-      fill(0);
-      ellipse(this.x, this.y, 3, 3);    
-      pop();
-    }
+    
   }
  
 }
