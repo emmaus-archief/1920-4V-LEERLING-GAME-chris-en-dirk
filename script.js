@@ -15,7 +15,6 @@
 /* ********************************************* */
 /* globale variabelen die je gebruikt in je game */
 /* ********************************************* */
-
 const UITLEG = 0;
 const SPELEN = 1;
 const GAMEOVER = 2;
@@ -92,7 +91,7 @@ class Jet {
     this.x += this.speed * cos(this.angle);
     this.y += this.speed * sin(this.angle);
   }
-
+  //Kogels
   draw() {
     //console.log("draw on x: " + this.x + " and y:" + this.y);
 
@@ -104,19 +103,26 @@ class Jet {
     pop();
     this.drawBullets();
   }
-    drawBullets() {
+  drawBullets() {
+    for (var i=0; i < this.bullets.length; i++) {
+          if (this.bullets[i].BulletGone() === true ) {
+              this.bullets.splice(i,1); // bullet verwijderen
+          }
+      }
     for (let bullet of this.bullets) {
         console.log("drawBullets");
       bullet.update();
       bullet.draw();
     }
   }
+  
+ 
 }
 
-class Bullet {
-  constructor(x, y, angle, isWhite) {
-    this.x = x;
-    this.y = y;
+class Bullet{
+    constructor(bulletX, bulletY, angle, isWhite) {
+    this.bulletX = bulletX;
+    this.bulletY = bulletY;
     this.angle = angle;
     this.isWhite = isWhite;
     this.speed = 5;
@@ -127,27 +133,28 @@ class Bullet {
   update() {
     this.x += this.speed * cos(this.angle);
     this.y += this.speed * sin(this.angle);
-    this.constrainToMap();
   }
    
    
-  constrainToMap() {
-    function verwijderKogel(){
-        drawBullets.splice();
+  BulletGone() {
+    if( this.bulletX > 1280 ){
+        return true;
     }
 
-    if( this.x > 1280 ){
-        verwijderKogel();
+    if( this.bulletY > 720 ){
+        return true;
     }
 
-    if( this.y > 720 ){
-        verwijderKogel();
+    if( this.bulletX < 0 ){
+        return true;
     }
 
+    if( this.bulletY < 0 ){
+        return true;
+    }
+    return false;
   }
   
-   
-   
   draw() {
     if (this.isWhite) {
       push();
