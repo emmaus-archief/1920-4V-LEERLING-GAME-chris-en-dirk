@@ -154,7 +154,6 @@ class Bullet{
   }
 //draw funcite van de kogels  
   draw() {
-      //console.log("bullet.draw");
       push();
       noStroke();
       fill(255,255,255);
@@ -304,7 +303,7 @@ function draw() {
             beginTekstKleur = 255;
         }
         textSize(45);
-        text("Druk linker muisknop in om te starten, niet met capslock spelen", 262, 350, 756, 100);
+        text("Druk linker muisknop in om te starten   (niet met capslock spelen) ", 262, 350, 756, 100);
         if (mouseIsPressed){
             spelStatus = SPELEN;
         }
