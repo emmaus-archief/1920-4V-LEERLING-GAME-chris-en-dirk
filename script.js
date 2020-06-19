@@ -22,10 +22,6 @@ var spelStatus = UITLEG;
 
 var speler1;
 var speler2;
-var Kogel1X = [];
-var Kogel1Y = [];
-var Kogel2X = [];
-var Kogel2Y = [];
 const startPositieXSpeler1 = 100; // x-positie van speler
 const startPositieYSpeler1 = 200; // y-positie van speler
 const startPositieXSpeler2 = 1200;
@@ -61,6 +57,7 @@ class Jet {
     this.bullets = [];
     this.isWhite = isWhite;
   }
+// Laat de jets schieten
   shoot() {
     console.log("shoot");
     let bullet = new Bullet(this.x, this.y, this.angle, this.isWhite);
@@ -73,7 +70,7 @@ class Jet {
     this.constrainToMap();
     this.angle += this.rotateAmount;
   }
-
+// zorgt ervoor dat de jets op de map blijven
   constrainToMap() {
     if (this.x < -this.image.width) {
         this.x = width;
@@ -87,23 +84,22 @@ class Jet {
         this.y = height;
     }
   }
-
+//zorgt ervoor dat de jets vooruit gaan waar de ount naartoe staat
   goWereFacing() {
     this.x += this.speed * cos(this.angle);
     this.y += this.speed * sin(this.angle);
   }
   draw() {
-    //console.log("draw on x: " + this.x + " and y:" + this.y);
-
     push();
     translate(this.x, this.y);
     rotate(this.angle + 90);
+    // @ts-ignore
     imageMode(CENTER);
     image(this.image, 0, 0);
     pop();
     this.drawBullets();
   }
-  drawBullets() {
+drawBullets() {
     for (var i=0; i < this.bullets.length; i++) {
       this.bullets[i].update();
       this.bullets[i].draw();
@@ -137,7 +133,7 @@ class Bullet{
     this.bulletY += this.speed * sin(this.angle);
   }
    
-   
+//Zegt wanneer de kogels weg moeten   
   BulletGone() {
     if( this.bulletX > 1280 ){
         return true;
@@ -156,7 +152,7 @@ class Bullet{
     }
     return false;
   }
-  
+//draw funcite van de kogels  
   draw() {
       //console.log("bullet.draw");
       push();
@@ -179,18 +175,13 @@ class Bullet{
 var tekenVeld = function () {
   image(gameAchtergrond, 20, 20, width - 2 * 20, height - 2 * 20);
 };
-
+//Tekent de spelers
 function tekenSpelers() {
   console
   speler1.draw();
   speler2.draw();
 }
-
-
-/**
- * Kijkt wat de toetsen/muis etc zijn. (keyIsDown)
- * Updatet globale variabele spelerX en spelerY
- */
+//beweegt de spelers
 var beweegSpelers = function() {
   if (keyIsPressed) {
     if (key === "a") {
@@ -199,9 +190,11 @@ var beweegSpelers = function() {
     if (key === "d") {
       speler1.angle += 5;
     }
+    // @ts-ignore
     if (keyCode === LEFT_ARROW) {
       speler2.angle -= 5;
     }
+    // @ts-ignore
     if (keyCode === RIGHT_ARROW) {
       speler2.angle += 5;
     }
@@ -211,37 +204,22 @@ var beweegSpelers = function() {
 
 };
 
-
-/**
- * Zoekt uit of de vijand is geraakt
- * @returns {boolean} true als vijand is geraakt
- */
+// Hebben we later nog nodig
 var checkSpeler1Geraakt = function() {
     
   return false;
 };
 
-
-/**
- * Zoekt uit of de speler is geraakt
- * bijvoorbeeld door botsing met vijand
- * @returns {boolean} true als speler is geraakt
- */
 var checkSpeler2Geraakt = function() {
     
   return false;
 };
 
-
-/**
- * Zoekt uit of het spel is afgelopen
- * @returns {boolean} true als het spel is afgelopen
- */
 var checkGameOver = function() {
     
   return false;
 };
-
+//timer
 function tekenTimer() {
     var nulExtra = "";
     if(stopwatchSec < 10) {
@@ -255,20 +233,6 @@ function tekenTimer() {
     text(timerString, 60, 60, 60, 60);
 
 }
-
-function createBullet() {
-    if (keyIsPressed){
-        if(key === "w"){
-            speler1.shoot();
-        }
-        if(key === "ArrowUp"){
-            speler2.shoot();
-        }
-    }
-    
-    
-}
-
 function updateTimer() {
     if(spelStatus == SPELEN){
 
@@ -285,10 +249,21 @@ function updateTimer() {
         }
 
     }
-}  
-
+}
+//Knoppen voor de kogel
+function createBullet() {
+    if (keyIsPressed){
+        if(key === "w"){
+            speler1.shoot();
+        }
+        if(key === "ArrowUp"){
+            speler2.shoot();
+        }
+    }   
+}
+  
 /**
- * peroload
+ * preload
  * de code in deze functie wordt één keer uitgevoerd door
  * de p5 library, voordat het spel geladen is in de browser
  */
@@ -311,23 +286,14 @@ function preload() {
 function setup() {
   // @ts-ignore
   angleMode(DEGREES);
-
   setInterval(updateTimer, 100);
-
-  // Maak een canvas (rechthoek) waarin je je speelveld kunt tekenen
   createCanvas(1280, 720);
-
-  // Kleur de achtergrond blauw, zodat je het kunt zien
   background("black");
   speler1 = new Jet(speler1Image, startPositieXSpeler1, startPositieYSpeler1, 3);
   speler2 = new Jet(speler2Image, startPositieXSpeler2, startPositieYSpeler2, 3);
 }
 
-/**
- * draw
- * de code in deze functie wordt meerdere keren per seconde
- * uitgevoerd door de p5 library, nadat de setup functie klaar is
- */
+//Algemene draw functie
 function draw() {
   switch (spelStatus) {
     case UITLEG:
@@ -338,13 +304,10 @@ function draw() {
             beginTekstKleur = 255;
         }
         textSize(45);
-        text("Druk linker muisknop in om te starten", 262, 350, 756, 100);
+        text("Druk linker muisknop in om te starten, niet met capslock spelen", 262, 350, 756, 100);
         if (mouseIsPressed){
             spelStatus = SPELEN;
         }
-      // teken hier je startscherm
-      // roep hier een functie aan om te zien welke toets indrukt is / kies modus
-
     break;
     case SPELEN:
       background("red");   
@@ -352,15 +315,9 @@ function draw() {
       createBullet();
       
       if (checkSpeler1Geraakt()) {
-        // punten erbij
-        // nieuwe vijand maken
       }
-      
       if (checkSpeler2Geraakt()) {
-        // leven eraf of gezondheid verlagen
-        // eventueel: nieuwe speler maken
       }
-
       tekenVeld();
       tekenSpelers();
       tekenTimer();
